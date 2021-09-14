@@ -16,4 +16,8 @@ public class User {
     public int getHourBeforeSendBirthdayEmail() {
         return hourBeforeSendBirthdayEmail;
     }
+
+    public void setHourBeforeSendBirthdayEmail(int hourBeforeSendBirthdayEmail) {
+        this.hourBeforeSendBirthdayEmail = hourBeforeSendBirthdayEmail;
+    }
 }

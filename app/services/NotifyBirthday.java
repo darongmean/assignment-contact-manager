@@ -3,7 +3,8 @@ package services;
 import models.Contact;
 import models.User;
 import services.action.NoAction;
-import services.action.SendEmail;
+import services.action.SaveUserPeference;
+import services.action.SaveUserPreferenceAndSendEmail;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -23,10 +24,10 @@ public class NotifyBirthday {
                 .collect(Collectors.toList());
 
         if (toBeNotified.size() == 0) {
-            return new NoAction();
+            return new SaveUserPeference(me.getEmail(), newHourBeforeSendBirthdayEmail);
         }
 
-        return new SendEmail(me.getEmail(), emailMessage(toBeNotified));
+        return new SaveUserPreferenceAndSendEmail(me.getEmail(), newHourBeforeSendBirthdayEmail, emailMessage(toBeNotified));
 
     }
 

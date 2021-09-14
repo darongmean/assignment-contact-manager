@@ -12,10 +12,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class Database {
     private final ConcurrentHashMap<String, List<Contact>> contactByUserEmail;
-
+    private final ConcurrentHashMap<String, User> userByUserEmail;
 
     public Database() {
         this.contactByUserEmail = new ConcurrentHashMap<>();
+        this.userByUserEmail = new ConcurrentHashMap<>();
+        userByUserEmail.put("user1@example.com", new User("user1@example.com", 1));
 
         List<Contact> user1Contacts = new ArrayList<>();
         user1Contacts.add(new Contact("user1@example.com", "contact1", LocalDate.now()));
@@ -29,6 +31,12 @@ public class Database {
     }
 
     public User whoAmI() {
-        return new User("user1@example.com", 1);
+        return userByUserEmail.get("user1@example.com");
+    }
+
+    public void updateUserPreference(String userEmail, int newHourBeforeSendBirthdayEmail) {
+        User user = userByUserEmail.get(userEmail);
+        user.setHourBeforeSendBirthdayEmail(newHourBeforeSendBirthdayEmail);
+        userByUserEmail.put(userEmail, user);
     }
 }
