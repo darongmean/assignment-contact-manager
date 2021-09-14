@@ -1,11 +1,13 @@
 package models;
 
 public class User {
-    String email;
-    int hourBeforeSendBirthdayEmail;
+    private final String email;
+    private final String password;
+    private int hourBeforeSendBirthdayEmail;
 
-    public User(String email, int hourBeforeSendBirthdayEmail) {
+    public User(String email, String password, int hourBeforeSendBirthdayEmail) {
         this.email = email;
+        this.password = password;
         this.hourBeforeSendBirthdayEmail = hourBeforeSendBirthdayEmail;
     }
 
@@ -19,5 +21,9 @@ public class User {
 
     public void setHourBeforeSendBirthdayEmail(int hourBeforeSendBirthdayEmail) {
         this.hourBeforeSendBirthdayEmail = hourBeforeSendBirthdayEmail;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

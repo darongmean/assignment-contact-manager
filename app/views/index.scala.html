@@ -1,6 +1,29 @@
 @()
 
 @main("Welcome to Contact Manager") {
+<h2>Available Test Users</h2>
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+  </tr>
+
+  <tr>
+    <td>user1@@example.com</td>
+    <td>password</td>
+  </tr>
+  <tr>
+    <td>user2@@example.com</td>
+    <td>password</td>
+  </tr>
+  <tr>
+    <td>user3@@example.com</td>
+    <td>password</td>
+  </tr>
+
+</table>
+
+<h2>Login</h2>
 <form action="@routes.ContactListController.postLogin()" method="post">
   <p>
     <input type="email" name="email" placeholder="Email">

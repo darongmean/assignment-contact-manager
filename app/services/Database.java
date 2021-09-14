@@ -17,9 +17,9 @@ public class Database {
     public Database() {
         this.contactByUserEmail = new ConcurrentHashMap<>();
         this.userByUserEmail = new ConcurrentHashMap<>();
-        userByUserEmail.put("user1@example.com", new User("user1@example.com", 1));
-        userByUserEmail.put("user2@example.com", new User("user2@example.com", 2));
-        userByUserEmail.put("user3@example.com", new User("user3@example.com", 3));
+        userByUserEmail.put("user1@example.com", new User("user1@example.com", "password", 1));
+        userByUserEmail.put("user2@example.com", new User("user2@example.com", "password", 2));
+        userByUserEmail.put("user3@example.com", new User("user3@example.com", "password", 3));
 
         List<Contact> contacts;
         contacts = new ArrayList<>();

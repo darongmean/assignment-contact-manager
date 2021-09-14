@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Secured;
+import models.User;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -57,12 +58,17 @@ public class ContactListController extends Controller {
 
     public Result postLogin(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
-        if (null == database.getUserByEmail(requestData.get("email"))) {
+        User user = database.getUserByEmail(requestData.get("email"));
+        if (null == user || isIncorrectPassword(requestData, user)) {
             return redirect(routes.ContactListController.getMe());
         }
         return redirect(routes.ContactListController.getMe())
                 .withNewSession()
                 .addingToSession(request, "username", requestData.get("email"));
+    }
+
+    private boolean isIncorrectPassword(DynamicForm requestData, User user) {
+        return !user.getPassword().equalsIgnoreCase(requestData.get("password"));
     }
 
     public Result postLogout() {
