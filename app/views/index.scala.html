@@ -1,7 +1,7 @@
 @()
 
 @main("Welcome to Contact Manager") {
-<form action="/login" method="post">
+<form action="@routes.ContactListController.postLogin()" method="post">
   <button>Login</button>
 </form>
 }

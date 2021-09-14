@@ -14,21 +14,21 @@ public class ContactListController extends Controller {
         this.mailServer = mailServer;
     }
 
-    public Result index() {
+    public Result getMe() {
+        return ok(views.html.me.render());
+    }
+
+    public Result getIndex() {
         return ok(views.html.index.render());
     }
 
-    public Result login() {
-        return redirect(routes.ContactListController.me());
-    }
-
-    public Result contactList() {
+    public Result postContactList() {
         mailServer.sendEmail();
-        return redirect(routes.ContactListController.me());
+        return redirect(routes.ContactListController.getMe());
     }
 
-    public Result me() {
-        return ok(views.html.me.render());
+    public Result postLogin() {
+        return redirect(routes.ContactListController.getMe());
     }
 
 }
