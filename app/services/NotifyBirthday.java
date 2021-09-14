@@ -5,6 +5,7 @@ import models.User;
 import services.action.NoAction;
 import services.action.SaveUserPeference;
 import services.action.SaveUserPreferenceAndSendEmail;
+import services.action.SendEmail;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -29,6 +30,20 @@ public class NotifyBirthday {
 
         return new SaveUserPreferenceAndSendEmail(me.getEmail(), newHourBeforeSendBirthdayEmail, emailMessage(toBeNotified));
 
+    }
+
+    public Action sendBirthdayEmail(User user, List<Contact> contactList, LocalDateTime today) {
+        int newHourBeforeSendBirthdayEmail = user.getHourBeforeSendBirthdayEmail();
+
+        List<Contact> toBeNotified = contactList.stream()
+                .filter(contact -> hasUpcomingBirthday(today, contact, newHourBeforeSendBirthdayEmail))
+                .collect(Collectors.toList());
+
+        if (toBeNotified.size() == 0) {
+            return new NoAction();
+        }
+
+        return new SendEmail(user.getEmail(), emailMessage(toBeNotified));
     }
 
     public boolean hasUpcomingBirthday(LocalDateTime now, Contact contact, int hours) {

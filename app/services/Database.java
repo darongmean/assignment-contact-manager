@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Singleton
 public class Database {
@@ -38,5 +39,9 @@ public class Database {
         User user = userByUserEmail.get(userEmail);
         user.setHourBeforeSendBirthdayEmail(newHourBeforeSendBirthdayEmail);
         userByUserEmail.put(userEmail, user);
+    }
+
+    public List<User> findAllUser() {
+        return new ArrayList<>(userByUserEmail.values());
     }
 }
