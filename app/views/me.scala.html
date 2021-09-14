@@ -1,8 +1,26 @@
-@()
+@(contacts: List[Contact])
 
 @main("Me") {
+
+<h2>Contact List</h2>
+<table>
+    <tr>
+        <th>Contact Name</th>
+        <th>Birthday</th>
+    </tr>
+
+    @for(contact <- contacts) {
+    <tr>
+        <td>@contact.getName()</td>
+        <td>@contact.getBirthday()</td>
+    </tr>
+    }
+
+</table>
+
+<h2>Actions</h2>
 <form action="@routes.ContactListController.postContactList()" method="post">
-  <button>update</button>
+    <button>update</button>
 </form>
 
 }
