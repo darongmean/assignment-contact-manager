@@ -11,6 +11,7 @@ import services.MailServer;
 import services.NotifyBirthday;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 
 public class ContactListController extends Controller {
     private final MailServer mailServer;
@@ -42,6 +43,7 @@ public class ContactListController extends Controller {
         Action action = notifyBirthday.update(
                 database.whoAmI(),
                 database.findContactByUserEmail("user1@example.com"),
+                LocalDateTime.now(),
                 requestData.get("hourBeforeSendBirthdayEmail"));
         action.execute(database, mailServer);
         return redirect(routes.ContactListController.getMe());
