@@ -1,5 +1,6 @@
 package services.action;
 
+import models.User;
 import services.Action;
 import services.Database;
 import services.MailServer;
@@ -16,6 +17,8 @@ public class SaveUserPeference implements Action {
 
     @Override
     public void execute(Database database, MailServer mailServer) {
-        database.updateUserPreference(userEmail, newHourBeforeSendBirthdayEmail);
+        User user = database.getUserByUserEmail().get(userEmail);
+        user.setHourBeforeSendBirthdayEmail(newHourBeforeSendBirthdayEmail);
+        database.getUserByUserEmail().put(userEmail, user);
     }
 }

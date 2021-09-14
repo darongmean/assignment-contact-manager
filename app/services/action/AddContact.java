@@ -1,10 +1,13 @@
 package services.action;
 
+import models.Contact;
 import services.Action;
 import services.Database;
 import services.MailServer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddContact implements Action {
     private String userEmail;
@@ -20,6 +23,8 @@ public class AddContact implements Action {
 
     @Override
     public void execute(Database database, MailServer mailServer) {
-        database.addContact(userEmail, name, birthday);
+        List<Contact> contacts = database.getContactByUserEmail().getOrDefault(userEmail, new ArrayList<>());
+        contacts.add(new Contact(name, birthday));
+        database.getContactByUserEmail().put(userEmail, contacts);
     }
 }
