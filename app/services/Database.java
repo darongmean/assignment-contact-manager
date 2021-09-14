@@ -1,6 +1,7 @@
 package services;
 
 import models.Contact;
+import models.User;
 
 import javax.inject.Singleton;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class Database {
     private final ConcurrentHashMap<String, List<Contact>> contactByUserEmail;
+
 
     public Database() {
         this.contactByUserEmail = new ConcurrentHashMap<>();
@@ -24,5 +26,9 @@ public class Database {
 
     public List<Contact> findContactByUserEmail(String userEmail) {
         return contactByUserEmail.getOrDefault(userEmail, new ArrayList<>());
+    }
+
+    public User whoAmI() {
+        return new User("user1@example.com", 1);
     }
 }

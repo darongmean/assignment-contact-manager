@@ -1,6 +1,8 @@
-@(contacts: List[Contact])
+@(me: User, contacts: List[Contact])
 
 @main("Me") {
+<h2>Me</h2>
+<p>@me.getEmail()</p>
 
 <h2>Contact List</h2>
 <table>
@@ -18,8 +20,16 @@
 
 </table>
 
-<h2>Actions</h2>
+<h2>Action</h2>
 <form action="@routes.ContactListController.postContactList()" method="post">
+    <p>Send me an email when there is a contact with an upcoming birthday.</p>
+    <p>Send
+        <input type="number"
+               step="1"
+               pattern="\d+"
+               name="hourBeforeSendBirthdayEmail"
+               value="@me.getHourBeforeSendBirthdayEmail()"/>
+        hours before the birthday.</p>
     <button>update</button>
 </form>
 

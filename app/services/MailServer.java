@@ -14,12 +14,12 @@ public class MailServer {
         this.mailerClient = mailerClient;
     }
 
-    public void sendEmail() {
+    public void sendEmail(String toEmail, String message) {
         Email email = new Email()
-                .setSubject("Simple email")
-                .setFrom("Mister FROM <from@email.com>")
-                .addTo("Miss TO <to@email.com>")
-                .setBodyText("A text message");
+                .setSubject("Birthday Alert")
+                .setFrom("Mister FROM <from@example.com>")
+                .addTo(toEmail)
+                .setBodyText(message);
         mailerClient.send(email);
     }
 }
