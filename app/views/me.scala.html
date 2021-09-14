@@ -3,6 +3,9 @@
 @main("Me") {
 <h2>Me</h2>
 <p>@me.getEmail()</p>
+<form action="@routes.ContactListController.postLogout()" method="post">
+    <button>Logout</button>
+</form>
 
 <h2>Contact List</h2>
 <table>
@@ -30,7 +33,6 @@
                name="hourBeforeSendBirthdayEmail"
                value="@me.getHourBeforeSendBirthdayEmail()"/>
         hours before the birthday.</p>
-    <button>update</button>
+    <button>Update</button>
 </form>
-
 }

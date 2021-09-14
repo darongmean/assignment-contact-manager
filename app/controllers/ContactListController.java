@@ -1,10 +1,12 @@
 package controllers;
 
+import models.Secured;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 import services.Action;
 import services.Database;
 import services.MailServer;
@@ -28,29 +30,43 @@ public class ContactListController extends Controller {
         this.notifyBirthday = notifyBirthday;
     }
 
-    public Result getMe() {
+    @Security.Authenticated(Secured.class)
+    public Result getMe(Http.Request request) {
+        String authenticatedEmail = request.session().get("username").get();
         return ok(views.html.me.render(
-                database.whoAmI(),
-                database.findContactByUserEmail("user1@example.com")));
+                database.getUserByEmail(authenticatedEmail),
+                database.findContactByUserEmail(authenticatedEmail)));
     }
 
     public Result getIndex() {
         return ok(views.html.index.render());
     }
 
+    @Security.Authenticated(Secured.class)
     public Result postContactList(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
+        String authenticatedEmail = request.session().get("username").get();
         Action action = notifyBirthday.update(
-                database.whoAmI(),
-                database.findContactByUserEmail("user1@example.com"),
+                database.getUserByEmail(authenticatedEmail),
+                database.findContactByUserEmail(authenticatedEmail),
                 LocalDateTime.now(),
                 requestData.get("hourBeforeSendBirthdayEmail"));
         action.execute(database, mailServer);
         return redirect(routes.ContactListController.getMe());
     }
 
-    public Result postLogin() {
-        return redirect(routes.ContactListController.getMe());
+    public Result postLogin(Http.Request request) {
+        DynamicForm requestData = formFactory.form().bindFromRequest(request);
+        if (null == database.getUserByEmail(requestData.get("email"))) {
+            return redirect(routes.ContactListController.getMe());
+        }
+        return redirect(routes.ContactListController.getMe())
+                .withNewSession()
+                .addingToSession(request, "username", requestData.get("email"));
+    }
+
+    public Result postLogout() {
+        return redirect(routes.ContactListController.getIndex()).withNewSession();
     }
 
 }

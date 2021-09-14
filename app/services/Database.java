@@ -30,8 +30,8 @@ public class Database {
         return contactByUserEmail.getOrDefault(userEmail, new ArrayList<>());
     }
 
-    public User whoAmI() {
-        return userByUserEmail.get("user1@example.com");
+    public User getUserByEmail(String email) {
+        return userByUserEmail.get(email);
     }
 
     public void updateUserPreference(String userEmail, int newHourBeforeSendBirthdayEmail) {

@@ -3,9 +3,11 @@
 # ~~~~
 
 GET     /                           controllers.ContactListController.getIndex()
-GET     /me                         controllers.ContactListController.getMe()
+GET     /me                         controllers.ContactListController.getMe(request: Request)
+GET     /logout                     controllers.ContactListController.postLogout()
 
-POST    /login                      controllers.ContactListController.postLogin()
+POST    /login                      controllers.ContactListController.postLogin(request: Request)
+POST    /logout                     controllers.ContactListController.postLogout()
 POST    /contactList                controllers.ContactListController.postContactList(request: Request)
 
 # Map static resources from the /public folder to the /assets URL path

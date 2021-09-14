@@ -2,6 +2,12 @@
 
 @main("Welcome to Contact Manager") {
 <form action="@routes.ContactListController.postLogin()" method="post">
+  <p>
+    <input type="email" name="email" placeholder="Email">
+  </p>
+  <p>
+    <input type="password" name="password" placeholder="Password">
+  </p>
   <button>Login</button>
 </form>
 }
