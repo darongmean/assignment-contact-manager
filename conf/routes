@@ -6,6 +6,7 @@ GET     /                           controllers.ContactListController.index()
 GET     /me                         controllers.ContactListController.me()
 
 POST    /login                      controllers.ContactListController.login()
+POST    /contactList                controllers.ContactListController.contactList()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
