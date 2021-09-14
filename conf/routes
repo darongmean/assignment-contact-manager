@@ -8,7 +8,7 @@ GET     /logout                     controllers.ContactListController.postLogout
 
 POST    /login                      controllers.ContactListController.postLogin(request: Request)
 POST    /logout                     controllers.ContactListController.postLogout()
-POST    /contactList                controllers.ContactListController.postContactList(request: Request)
+POST    /birthday                   controllers.ContactListController.postBirthday(request: Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

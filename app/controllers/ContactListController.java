@@ -44,7 +44,7 @@ public class ContactListController extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public Result postContactList(Http.Request request) {
+    public Result postBirthday(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
         String authenticatedEmail = request.session().get("username").get();
         Action action = notifyBirthday.update(
