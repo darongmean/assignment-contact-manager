@@ -18,10 +18,20 @@
     <tr>
         <td>@contact.getName()</td>
         <td>@contact.getBirthday()</td>
+        <td>
+            <a href="@routes.ContactListController.getContactEdit(contact.getId())">edit</a>
+        </td>
+        <td>
+            <form action="@routes.ContactListController.postContactDelete(contact.getId())"
+                  method="post">
+                <button>delete</button>
+            </form>
+        </td>
     </tr>
     }
 
 </table>
+<a href="@routes.ContactListController.getContact()">Add contact</a>
 
 <h2>Action</h2>
 <form action="@routes.ContactListController.postBirthday()" method="post">

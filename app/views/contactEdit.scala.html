@@ -1,0 +1,15 @@
+@(contact: Contact)
+
+@main("Contact") {
+
+<h2>Contact</h2>
+<form action="@routes.ContactListController.postContactEdit(contact.getId())" method="post">
+    <p>Name</p>
+    <input type="text" name="name" value="@contact.getName()"/>
+    <p>Birthday</p>
+    <input type="date" name="birthday" value="@contact.getBirthday()"/>
+    <p>
+    <button>Update</button>
+    </p>
+</form>
+}

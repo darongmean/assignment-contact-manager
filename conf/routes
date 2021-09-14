@@ -5,10 +5,15 @@
 GET     /                           controllers.ContactListController.getIndex()
 GET     /me                         controllers.ContactListController.getMe(request: Request)
 GET     /logout                     controllers.ContactListController.postLogout()
+GET     /contact                    controllers.ContactListController.getContact(request: Request)
+GET     /contact/:contactId         controllers.ContactListController.getContactEdit(request: Request, contactId: String)
 
 POST    /login                      controllers.ContactListController.postLogin(request: Request)
 POST    /logout                     controllers.ContactListController.postLogout()
 POST    /birthday                   controllers.ContactListController.postBirthday(request: Request)
+POST    /contact                    controllers.ContactListController.postContact(request: Request)
+POST    /contact/:contactId         controllers.ContactListController.postContactEdit(request: Request, contactId: String)
+POST    /contact/delete/:contactId  controllers.ContactListController.postContactDelete(request: Request, contactId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

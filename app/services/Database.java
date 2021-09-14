@@ -67,4 +67,33 @@ public class Database {
     public List<User> findAllUser() {
         return new ArrayList<>(userByUserEmail.values());
     }
+
+    public void addContact(String userEmail, String name, LocalDate birthday) {
+        List<Contact> contacts = contactByUserEmail.getOrDefault(userEmail, new ArrayList<>());
+        contacts.add(new Contact(name, birthday));
+        contactByUserEmail.put(userEmail, contacts);
+    }
+
+    public Contact getContact(String userEmail, String contactId) {
+        return contactByUserEmail.getOrDefault(userEmail, new ArrayList<>())
+                .stream()
+                .filter(contact -> contact.getId().equalsIgnoreCase(contactId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void editContact(String userEmail, String contactId, String name, LocalDate birthday) {
+        List<Contact> contacts = contactByUserEmail.getOrDefault(userEmail, new ArrayList<>());
+        for(Contact contact: contacts){
+            if (contact.getId().equalsIgnoreCase(contactId)) {
+                contact.setName(name);
+                contact.setBirthday(birthday);
+            }
+        }
+    }
+
+    public void deleteContact(String userEmail, String contactId) {
+        List<Contact> contacts = contactByUserEmail.getOrDefault(userEmail, new ArrayList<>());
+        contacts.removeIf(contact -> contact.getId().equalsIgnoreCase(contactId));
+    }
 }
