@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 @Singleton
 public class Database {
@@ -19,12 +18,36 @@ public class Database {
         this.contactByUserEmail = new ConcurrentHashMap<>();
         this.userByUserEmail = new ConcurrentHashMap<>();
         userByUserEmail.put("user1@example.com", new User("user1@example.com", 1));
+        userByUserEmail.put("user2@example.com", new User("user2@example.com", 2));
+        userByUserEmail.put("user3@example.com", new User("user3@example.com", 3));
 
-        List<Contact> user1Contacts = new ArrayList<>();
-        user1Contacts.add(new Contact("user1@example.com", "contact1", LocalDate.now()));
-        user1Contacts.add(new Contact("user1@example.com", "contact2", LocalDate.now().plusDays(1)));
-        user1Contacts.add(new Contact("user1@example.com", "contact3", LocalDate.now().minusDays(1)));
-        this.contactByUserEmail.put("user1@example.com", user1Contacts);
+        List<Contact> contacts;
+        contacts = new ArrayList<>();
+        contacts.add(new Contact("contact1", LocalDate.now()));
+        contacts.add(new Contact("contact2", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact3", LocalDate.now().minusDays(1)));
+        this.contactByUserEmail.put("user1@example.com", contacts);
+
+        contacts = new ArrayList<>();
+        contacts.add(new Contact("contact1", LocalDate.now()));
+        contacts.add(new Contact("contact11", LocalDate.now()));
+        contacts.add(new Contact("contact2", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact22", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact3", LocalDate.now().minusDays(1)));
+        contacts.add(new Contact("contact33", LocalDate.now().minusDays(1)));
+        this.contactByUserEmail.put("user2@example.com", contacts);
+
+        contacts = new ArrayList<>();
+        contacts.add(new Contact("contact1", LocalDate.now()));
+        contacts.add(new Contact("contact11", LocalDate.now()));
+        contacts.add(new Contact("contact111", LocalDate.now()));
+        contacts.add(new Contact("contact2", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact22", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact222", LocalDate.now().plusDays(1)));
+        contacts.add(new Contact("contact3", LocalDate.now().minusDays(1)));
+        contacts.add(new Contact("contact33", LocalDate.now().minusDays(1)));
+        contacts.add(new Contact("contact333", LocalDate.now().minusDays(1)));
+        this.contactByUserEmail.put("user3@example.com", contacts);
     }
 
     public List<Contact> findContactByUserEmail(String userEmail) {
